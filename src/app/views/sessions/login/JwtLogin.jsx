@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom'
 import { Box, styled, useTheme } from '@mui/system'
 import { TextValidator, ValidatorForm } from 'react-material-ui-form-validator'
 import { Paragraph, Span } from 'app/components/Typography'
+import logo from '../../../../images/logo.png'
 
 const FlexBox = styled(Box)(() => ({
     display: 'flex',
@@ -53,8 +54,8 @@ const JwtLogin = () => {
     const navigate = useNavigate()
     const [loading, setLoading] = useState(false)
     const [userInfo, setUserInfo] = useState({
-        email: 'jason@ui-lib.com',
-        password: 'dummyPass',
+        loginID: '',
+        password: '',
     })
     const [message, setMessage] = useState('')
     const { login } = useAuth()
@@ -72,8 +73,9 @@ const JwtLogin = () => {
     const handleFormSubmit = async (event) => {
         setLoading(true)
         try {
-            await login(userInfo.email, userInfo.password)
-            navigate('/')
+            await login(userInfo.loginID, userInfo.password)
+            // navigate('/')
+
         } catch (e) {
             console.log(e)
             setMessage(e.message)
@@ -88,7 +90,7 @@ const JwtLogin = () => {
                     <Grid item lg={5} md={5} sm={5} xs={12}>
                         <JustifyBox p={4} height="100%">
                             <IMG
-                                src="/assets/images/illustrations/dreamer.svg"
+                                src={logo}
                                 alt=""
                             />
                         </JustifyBox>
@@ -100,15 +102,14 @@ const JwtLogin = () => {
                                     sx={{ mb: 3, width: '100%' }}
                                     variant="outlined"
                                     size="small"
-                                    label="Email"
+                                    label="User ID"
                                     onChange={handleChange}
-                                    type="email"
-                                    name="email"
-                                    value={userInfo.email}
-                                    validators={['required', 'isEmail']}
+                                  //  type="email"
+                                    name="loginID"
+                                    value={userInfo.loginID}
+                                    validators={['required']}
                                     errorMessages={[
-                                        'this field is required',
-                                        'email is not valid',
+                                        'this field is required'
                                     ]}
                                 />
                                 <TextValidator
@@ -160,7 +161,7 @@ const JwtLogin = () => {
                                             disabled={loading}
                                             type="submit"
                                         >
-                                            Sign in
+                                            Login
                                         </Button>
                                         {loading && (
                                             <StyledProgress
@@ -169,15 +170,6 @@ const JwtLogin = () => {
                                             />
                                         )}
                                     </Box>
-                                    <Span sx={{ mr: 1, ml: '20px' }}>or</Span>
-                                    <Button
-                                        sx={{ textTransform: 'capitalize' }}
-                                        onClick={() =>
-                                            navigate('/session/signup')
-                                        }
-                                    >
-                                        Sign up
-                                    </Button>
                                 </FlexBox>
                                 <Button
                                     sx={{ color: textPrimary }}

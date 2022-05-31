@@ -1,5 +1,5 @@
 import React from 'react'
-import { MatxLogo } from 'app/components'
+
 import { Span } from '../../components/Typography'
 import { styled, Box } from '@mui/system'
 import useSettings from 'app/hooks/useSettings'
@@ -25,9 +25,9 @@ const Brand = ({ children }) => {
     return (
         <BrandRoot>
             <Box display="flex" alignItems="center">
-                <MatxLogo />
+              
                 <StyledSpan mode={mode} className="sidenavHoverShow">
-                    Matx
+                    Apollo
                 </StyledSpan>
             </Box>
             <Box

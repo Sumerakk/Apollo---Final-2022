@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { Span } from 'app/components/Typography'
 import { Card, Grid, Button } from '@mui/material'
 import { TextValidator, ValidatorForm } from 'react-material-ui-form-validator'
+import logo from '../../../images/logo.png'
 
 const FlexBox = styled(Box)(() => ({
     display: 'flex',
@@ -59,7 +60,7 @@ const ForgotPassword = () => {
                     <Grid item lg={5} md={5} sm={5} xs={12}>
                         <JustifyBox p={4} height="100%">
                             <IMG
-                                src="/assets/images/illustrations/dreamer.svg"
+                                src={logo}
                                 alt=""
                             />
                         </JustifyBox>
@@ -89,13 +90,6 @@ const ForgotPassword = () => {
                                         type="submit"
                                     >
                                         Reset Password
-                                    </Button>
-                                    <Span sx={{ mr: 1, ml: '16px' }}>or</Span>
-                                    <Button
-                                        sx={{ textTransform: 'capitalize' }}
-                                        onClick={() => navigate("/session/signin")}
-                                    >
-                                        Sign in
                                     </Button>
                                 </FlexBox>
                             </ValidatorForm>

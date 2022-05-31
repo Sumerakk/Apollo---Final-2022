@@ -13,7 +13,7 @@ const getUserRoleAuthStatus = (pathname, user, routes) => {
 
     const authenticated =
         matched && matched.auth && matched.auth.length
-            ? matched.auth.includes(user.role)
+            ? matched.auth.includes(user)
             : true
     console.log(matched, user)
     return authenticated
@@ -24,10 +24,18 @@ const AuthGuard = ({ children }) => {
 
     // return <>{isAuthenticated ? children : <Navigate to="/session/signin" />}</>
 
+    console.log("I am here --- 01: " + isAuthenticated)
+
     const [previouseRoute, setPreviousRoute] = useState(null)
+    console.log("I am here --- 02: " + user)
     const { pathname } = useLocation()
+    console.log("I am here --- 03" + pathname)
+
+    //const [previouseRoute, setPreviousRoute] = useState(null)
+    //const { pathname } = useLocation()
     const routes = flat(AllPages())
 
+    //console.log(user)
     console.log(user)
 
     const isUserRoleAuthenticated = getUserRoleAuthStatus(
@@ -35,7 +43,8 @@ const AuthGuard = ({ children }) => {
         user,
         routes
     )
-    let authenticated = isAuthenticated && isUserRoleAuthenticated
+    let authenticated = (user && isAuthenticated) || isUserRoleAuthenticated
+   // console.log(isUserRoleAuthenticated)
 
     // IF YOU NEED ROLE BASED AUTHENTICATION,
     // UNCOMMENT ABOVE TWO LINES, getUserRoleAuthStatus METHOD AND user VARIABLE

@@ -1,10 +1,11 @@
 import React, { Fragment } from 'react'
 import Scrollbar from 'react-perfect-scrollbar'
 import { navigations } from 'app/navigations'
+import { StudentNavigation } from '../../../app/StudentNavigation'
 import { MatxVerticalNav } from 'app/components'
 import useSettings from 'app/hooks/useSettings'
 import { styled } from '@mui/system'
-
+import { authRoles } from '../../auth/authRoles'
 const StyledScrollBar = styled(Scrollbar)(() => ({
     paddingLeft: '1rem',
     paddingRight: '1rem',
@@ -46,16 +47,27 @@ const Sidenav = ({ children }) => {
 
     return (
         <Fragment>
-            <StyledScrollBar options={{ suppressScrollX: true }}>
+                 <StyledScrollBar options={{ suppressScrollX: true }}>
                 {children}
-                <MatxVerticalNav items={navigations} />
-            </StyledScrollBar>
+                <MatxVerticalNav 
+                items={navigations}
+                auth = {authRoles.teacher}
+                />
+                </StyledScrollBar>
+
+                <StyledScrollBar options={{ suppressScrollX: true }}>
+                <MatxVerticalNav 
+                items={StudentNavigation} 
+                auth = {authRoles.student}
+                />
+                </StyledScrollBar>
 
             <SideNavMobile
                 onClick={() => updateSidebarMode({ mode: 'close' })}
             />
         </Fragment>
-    )
+             
+         )
 }
 
 export default Sidenav

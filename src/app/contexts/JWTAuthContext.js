@@ -1,7 +1,9 @@
-import React, { createContext, useEffect, useReducer } from 'react'
+import React, { createContext, useEffect, useReducer, useState } from 'react'
 import jwtDecode from 'jwt-decode'
 import axios from 'axios.js'
 import { MatxLoading } from 'app/components'
+import { useNavigate } from 'react-router-dom'
+
 
 const initialState = {
     isAuthenticated: false,
@@ -79,16 +81,19 @@ const AuthContext = createContext({
     logout: () => { },
     register: () => Promise.resolve(),
 })
+//const AuthContext = createContext({})
 
 export const AuthProvider = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, initialState)
+    const navigate = useNavigate()
 
-    const login = async (email, password) => {
-        const response = await axios.post('/api/auth/login', {
-            email,
+    const login = async (loginID, password) => {
+        const response = await axios.post('http://localhost:5000/Login', {
+            loginID,
             password,
         })
         const { accessToken, user } = response.data
+        console.log(response.data)
 
         setSession(accessToken)
 
@@ -98,6 +103,21 @@ export const AuthProvider = ({ children }) => {
                 user,
             },
         })
+        
+        let eachUser = JSON.parse(localStorage.getItem('userDetails'))
+        console.log('user',eachUser)
+        if(eachUser.roleID == '3'){
+            navigate('/dashboard/teacher')
+        }
+        else if(eachUser.roleID == '4'){
+            navigate('/dashboard/student')
+        }
+        else if(eachUser.roleID == '2'){
+            navigate('/dashboard/student')
+        }
+        else{
+            console.log('no navigation')
+        }
     }
 
     const register = async (email, username, password) => {
@@ -121,6 +141,7 @@ export const AuthProvider = ({ children }) => {
 
     const logout = () => {
         setSession(null)
+        localStorage.removeItem('userDetails')
         dispatch({ type: 'LOGOUT' })
     }
 
@@ -131,7 +152,7 @@ export const AuthProvider = ({ children }) => {
 
                 if (accessToken && isValidToken(accessToken)) {
                     setSession(accessToken)
-                    const response = await axios.get('/api/auth/profile')
+                    const response = await axios.get('http://localhost:5000/UserData')
                     const { user } = response.data
 
                     dispatch({

@@ -1,4 +1,5 @@
 import React from 'react'
+import {StyleSheet, Text} from 'react-native'
 import {
     Table,
     TableHead,
@@ -10,6 +11,7 @@ import {
 import { Checkbox } from '@mui/material'
 import { Box, styled } from '@mui/system'
 import { Icon, Button, Fab } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
 
 const StyledTable = styled(Table)(({ theme }) => ({
     whiteSpace: 'pre',
@@ -30,90 +32,35 @@ const StyledTable = styled(Table)(({ theme }) => ({
         },
     },
 }))
-
+const StyledButton = styled(Button)(({ theme }) => ({
+    margin: theme.spacing(1),
+}))
 const subscribarList = [
     {
         name: 'CS-101',
         date: '03',
         company: 'Computer Programing Language',
-        status: 'Core',
     },
     {
         name: 'CS-101-Lab',
         date: '01',
         company: 'Computer Programing Language - Lab',
-        status: 'Core',
-    },
-    {
-        name: 'CS-102',
-        date: '03',
-        company: 'Data Structures',
-        status: 'Core',
     },
     {
         name: 'CS-201',
         date: '03',
         company: 'Database Systems',
-        status: 'Core',
     },
     {
         name: 'CS-201-Lab',
         date: '01',
         company: 'Database Systems - Lab',
-        status: 'Core',
-    },
-    {
-        name: 'CS-301',
-        date: '03',
-        company: 'Linear Algebra',
-        status: 'Core',
-    },
-    {
-        name: 'CS-601',
-        date: '03',
-        company: 'Marketing Management',
-        status: 'Elective',
-    },
-    {
-        name: 'CS-701',
-        date: '03',
-        company: 'Enterpreneurship',
-        status: 'Elective',
-    },
-    {
-        name: 'CS-114',
-        date: '03',
-        company: 'Human & Computer Interaction',
-        status: 'Core',
-    },
-    {
-        name: 'CS-112',
-        date: '03',
-        company: 'Computer organization & Assembly Language',
-        status: 'Core',
-    },
-    {
-        name: 'CS-311',
-        date: '03',
-        company: 'Discrete Structures',
-        status: 'Core',
-    },
-    {
-        name: 'CS-320',
-        date: '03',
-        company: 'Algorthims',
-        status: 'Core',
-    },
-    {
-        name: 'CS-322',
-        date: '03',
-        company: 'Probability & Statistics',
-        status: 'Core',
     },
 ]
 
 const SimpleTable = () => {
 
+    const navigate = useNavigate();
     const [state, setState] = React.useState({
         checkedA: true,
         checkedB: true,
@@ -132,7 +79,6 @@ const SimpleTable = () => {
                         <TableCell>Course Code</TableCell>
                         <TableCell>Course Name</TableCell>
                         <TableCell align="center">Course Credit Hours</TableCell>
-                        <TableCell>Course Type</TableCell>
                         <TableCell>Action</TableCell>
                     </TableRow>
                 </TableHead>
@@ -148,16 +94,10 @@ const SimpleTable = () => {
                             <TableCell align="center">
                                 {subscriber.date}
                             </TableCell>
-                            <TableCell>
-                                {subscriber.status}
-                            </TableCell>
                             <TableCell align="left">
-                                <IconButton>
-                                <Checkbox
-                                    value="checkedC"
-                                    inputProps={{'aria-label': 'uncontrolled-checkbox',}}
-                                />
-                                </IconButton>
+                            <StyledButton style={{width:150}} onClick={()=> navigate('/material/AddCourseform')} variant="contained" color="primary">
+                    Drop Course
+            </StyledButton>
                             </TableCell>
                         </TableRow>
                     ))}
