@@ -4,6 +4,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import { Navigate, useLocation } from 'react-router-dom'
 import AppContext from '../contexts/AppContext'
 import { AllPages } from '../routes/routes'
+import NavigationAction from '../../app/redux/actions/NavigationAction'
 
 const getUserRoleAuthStatus = (pathname, user, routes) => {
     if (!user) {
@@ -30,6 +31,9 @@ const AuthGuard = ({ children }) => {
     console.log("I am here --- 02: " + user)
     const { pathname } = useLocation()
     console.log("I am here --- 03" + pathname)
+
+
+
 
     //const [previouseRoute, setPreviousRoute] = useState(null)
     //const { pathname } = useLocation()
@@ -59,6 +63,7 @@ const AuthGuard = ({ children }) => {
     if (authenticated) return <>{children}</>
     else {
         return (
+            
             <Navigate
                 to="/session/signin"
                 state={{ redirectUrl: previouseRoute }}
@@ -70,6 +75,7 @@ const AuthGuard = ({ children }) => {
             //     }}
             // />
         )
+        
     }
 }
 

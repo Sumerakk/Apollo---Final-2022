@@ -1,11 +1,10 @@
 import React from 'react'
-import ViewAttendance from './ViewAttendance'
-//import PaginationTable from './PaginationTable'
+import EditStudentProfileForm from './EditStudentProfileForm'
+import { Span } from 'app/components/Typography'
 import { Breadcrumb, SimpleCard } from 'app/components'
 import { Box, styled } from '@mui/system'
-import { Icon, Button, Fab } from '@mui/material'
-import { Span } from 'app/components/Typography'
-import { useNavigate } from 'react-router-dom'
+import { Button, Icon } from '@mui/material'
+import axios from 'axios'
 
 const Container = styled('div')(({ theme }) => ({
     margin: '30px',
@@ -22,27 +21,20 @@ const Container = styled('div')(({ theme }) => ({
 const StyledButton = styled(Button)(({ theme }) => ({
     margin: theme.spacing(1),
 }))
-
-
-const ViewAttendanceFile = () => {
-
-    const navigate = useNavigate();
+const EditStudentProfileFormFile = () => {
     return (
         <Container>
             <div className="breadcrumb">
                 <Breadcrumb
                     routeSegments={[
                         { name: 'Material', path: '/material' },
-                        { name: 'View Attendance' },
+                        { name: 'Edit Student Profile' },
                     ]}
                 />
-           </div>
- 
-            <SimpleCard title="Registered Courses">
-                 <ViewAttendance />
-            </SimpleCard>
+            </div>
+<EditStudentProfileForm />
         </Container>
     )
 }
 
-export default ViewAttendanceFile
+export default EditStudentProfileFormFile

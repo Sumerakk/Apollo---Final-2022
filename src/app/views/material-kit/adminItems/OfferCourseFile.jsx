@@ -1,6 +1,5 @@
 import React from 'react'
-import ViewAttendance from './ViewAttendance'
-//import PaginationTable from './PaginationTable'
+import OfferCourse from './OfferCourse'
 import { Breadcrumb, SimpleCard } from 'app/components'
 import { Box, styled } from '@mui/system'
 import { Icon, Button, Fab } from '@mui/material'
@@ -22,9 +21,7 @@ const Container = styled('div')(({ theme }) => ({
 const StyledButton = styled(Button)(({ theme }) => ({
     margin: theme.spacing(1),
 }))
-
-
-const ViewAttendanceFile = () => {
+const AppTable = () => {
 
     const navigate = useNavigate();
     return (
@@ -33,16 +30,22 @@ const ViewAttendanceFile = () => {
                 <Breadcrumb
                     routeSegments={[
                         { name: 'Material', path: '/material' },
-                        { name: 'View Attendance' },
+                        { name: 'Offer Courses' },
                     ]}
                 />
            </div>
  
-            <SimpleCard title="Registered Courses">
-                 <ViewAttendance />
+            <SimpleCard title="Offer Courses">
+            <StyledButton style={{marginLeft: '65%', width:150}} onClick={()=> navigate('/material/AddCourseform')} variant="contained" color="primary">
+                    Add New Course
+            </StyledButton>
+                <StyledButton variant="contained" color="primary">
+                    Offer Selected Courses
+                </StyledButton>
+                 <OfferCourse />
             </SimpleCard>
         </Container>
     )
 }
 
-export default ViewAttendanceFile
+export default AppTable

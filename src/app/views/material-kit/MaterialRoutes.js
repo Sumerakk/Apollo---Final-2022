@@ -2,25 +2,19 @@ import React, { lazy } from 'react'
 import Loadable from 'app/components/Loadable/Loadable';
 
 const AppTable = Loadable(lazy(() => import("./tables/AppTable")));
+const OfferCourse = Loadable(lazy(() => import("./adminItems/OfferCourseFile")));
 const SetMarksDistribution = Loadable(lazy(() => import("./tables/SetMarksDistrubutionFile")));
 const AppForm = Loadable(lazy(() => import("./forms/AppForm")));
-const AddCourseForm = Loadable(lazy(() => import("./forms/AddCourseFormFile")));
-const AddTeacherForm = Loadable(lazy(() => import("./forms/AddTeacherFormFile")));
-const EditStudentProfileForm = Loadable(lazy(() => import("./forms/EditStudentProfileFormFile")));
-const EditStudentForm = Loadable(lazy(() => import("./forms/EditStudentFormFile")));
-const AssignTeacherForm = Loadable(lazy(() => import("./forms/AssignTeacherFormFile")));
-const AppButton = Loadable(lazy(() => import("./buttons/AppButton")));
-const AppIcon = Loadable(lazy(() => import("./icons/AppIcon")));
-const AppProgress = Loadable(lazy(() => import("./AppProgress")));
-const AppMenu = Loadable(lazy(() => import("./menu/AppMenu")));
-const AppCheckbox = Loadable(lazy(() => import("./checkbox/AppCheckbox")));
-const AppSwitch = Loadable(lazy(() => import("./switch/AppSwitch")));
-const AppRadio = Loadable(lazy(() => import("./radio/AppRadio")));
-const AppSlider = Loadable(lazy(() => import("./slider/AppSlider")));
-const AppDialog = Loadable(lazy(() => import("./dialog/AppDialog")));
-const AppSnackbar = Loadable(lazy(() => import("./snackbar/AppSnackbar")));
-const AppAutoComplete = Loadable(lazy(() => import("./auto-complete/AppAutoComplete")));
-const AppExpansionPanel = Loadable(lazy(() => import("./expansion-panel/AppExpansionPanel")));
+const AddCourseForm = Loadable(lazy(() => import("./adminItems/AddCourseFormFile")));
+const AddTeacherForm = Loadable(lazy(() => import("./adminItems/AddTeacherFormFile")));
+const EditStudentProfileForm = Loadable(lazy(() => import("./adminItems/EditStudentProfileFormFile")));
+const EditStudentForm = Loadable(lazy(() => import("./adminItems/EditStudentFormFile")));
+const AssignTeacherForm = Loadable(lazy(() => import("./adminItems/AssignTeacherFormFile")));
+const WithdrawCourseTable = Loadable(lazy(() => import("./adminItems/WithdrawCourseTableFile")));
+const CalculateCGPAForm = Loadable(lazy(() => import("./studentItems/CalculateCGPAFormFile")));
+const CourseRegisterationTable = Loadable(lazy(() => import("./studentItems/CourseRegisterationTableFile")));
+const ViewAttendance = Loadable(lazy(() => import("./studentItems/ViewAttendanceFile")));
+const ViewMarks = Loadable(lazy(() => import("./studentItems/ViewMarksFile")));
 const ManageEvaluation = Loadable(lazy(() => import("./tables/ManageEvaluationFile")));
 const StudentsList = Loadable(lazy(() => import("./forms/EvaluateStudents")));
 
@@ -36,6 +30,18 @@ const materialRoutes = [
     {
         path: '/material/manageEvaluation',
         element: <ManageEvaluation />,
+    },
+    {
+        path: '/material/EvaluateStudents',
+        element: <StudentsList />,
+    },
+    {
+        path: '/material/AssignTeacherForm',
+        element: <AssignTeacherForm />,
+    },
+    {
+        path: '/material/OfferCourse',
+        element: <OfferCourse />,
     },
     {
         path: '/material/form',
@@ -58,61 +64,29 @@ const materialRoutes = [
         element: <EditStudentForm />,
     },
     {
-        path: '/material/EvaluateStudents',
-        element: <StudentsList />,
-    },
-    {
         path: '/material/AssignTeacherForm',
         element: <AssignTeacherForm />,
     },
     {
-        path: '/material/buttons',
-        element: <AppButton />,
+        path: '/material/WithdrawCourseTable',
+        element: <WithdrawCourseTable />,
+    },    
+    {
+        path: '/material/CourseRegisterationTable',
+        element: <CourseRegisterationTable />,
     },
     {
-        path: '/material/icons',
-        element: <AppIcon />,
+        path: '/material/ViewAttendance',
+        element: <ViewAttendance />,
     },
     {
-        path: '/material/progress',
-        element: <AppProgress />,
+        path: '/material/ViewMarks',
+        element: <ViewMarks />,
     },
     {
-        path: '/material/menu',
-        element: <AppMenu />,
-    },
-    {
-        path: '/material/checkbox',
-        element: <AppCheckbox />,
-    },
-    {
-        path: '/material/switch',
-        element: <AppSwitch />,
-    },
-    {
-        path: '/material/radio',
-        element: <AppRadio />,
-    },
-    {
-        path: '/material/slider',
-        element: <AppSlider />,
-    },
-    {
-        path: '/material/autocomplete',
-        element: <AppAutoComplete />,
-    },
-    {
-        path: '/material/expansion-panel',
-        element: <AppExpansionPanel />,
-    },
-    {
-        path: '/material/dialog',
-        element: <AppDialog />,
-    },
-    {
-        path: '/material/snackbar',
-        element: <AppSnackbar />,
-    },
+        path: '/material/CalculateCGPAForm',
+        element: <CalculateCGPAForm />,
+    },    
 ]
 
 export default materialRoutes

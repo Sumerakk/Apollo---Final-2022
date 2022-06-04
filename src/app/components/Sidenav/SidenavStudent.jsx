@@ -1,12 +1,10 @@
 import React, { Fragment } from 'react'
 import Scrollbar from 'react-perfect-scrollbar'
-import { navigations } from 'app/navigations'
-import { StudentNavigation } from '../../../app/StudentNavigation'
-import {AdminNavigation} from '../../../app/AdminNavigation'
+import { StudentNavigation } from '../../StudentNavigation'
 import { MatxVerticalNav } from 'app/components'
 import useSettings from 'app/hooks/useSettings'
 import { styled } from '@mui/system'
-import { authRoles } from '../../auth/authRoles'
+
 const StyledScrollBar = styled(Scrollbar)(() => ({
     paddingLeft: '1rem',
     paddingRight: '1rem',
@@ -27,12 +25,8 @@ const SideNavMobile = styled('div')(({ theme }) => ({
     },
 }))
 
-const Sidenav = ({ children }) => {
-    
+const SidenavStudent = ({ children }) => {
     const { settings, updateSettings } = useSettings()
-    let userDetails = JSON.parse(localStorage.getItem('userDetails'))
-    console.log('role in side nav', userDetails?.roleID)
-   
 
     const updateSidebarMode = (sidebarSettings) => {
         let activeLayoutSettingsName = settings.activeLayout + 'Settings'
@@ -52,11 +46,9 @@ const Sidenav = ({ children }) => {
 
     return (
         <Fragment>
-                 <StyledScrollBar options={{ suppressScrollX: true }}>
-                {children}
+                <StyledScrollBar options={{ suppressScrollX: true }}>
                 <MatxVerticalNav 
-                items={
-                    userDetails?.roleID == 3 ? navigations : (userDetails?.roleID == 4 ? StudentNavigation : (userDetails?.roleID == 2 ? AdminNavigation : null))}
+                items={StudentNavigation} 
                 />
                 </StyledScrollBar>
 
@@ -68,4 +60,4 @@ const Sidenav = ({ children }) => {
          )
 }
 
-export default Sidenav
+export default SidenavStudent
