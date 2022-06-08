@@ -42,10 +42,10 @@ const CourseRegisterationTableFile = () => {
                 <div>
             <Text><Text style={{ align:"left" , textDecorationLine : "underline" , paddingLeft: '4px' , fontWeight: "bold"}}> Semester:  </Text><Text> Spring-2022</Text></Text>
            <Text><Text style={{align:"right", textDecorationLine : "underline" , paddingLeft: '60px', fontWeight: "bold"}}> Program:  </Text><Text> BS-CS</Text></Text></div>          
-            <Box py="5px" />
+            <Box py="3px" />
                 <CourseRegisterationTable />
             </SimpleCard>
-            <Box py="5px" />
+            <Box py="3px" />
             <SimpleCard title="Elective Courses">
                <ElectiveCourseRegisterationForm />
             </SimpleCard>

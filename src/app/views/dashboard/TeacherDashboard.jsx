@@ -46,6 +46,10 @@ const Container = styled('div')(({ theme }) => ({
     },
 }))
 
+
+let isUser = JSON.parse(localStorage.getItem('teacherDetails'))
+console.log('user',isUser)
+
 function createPersonalInfoData(personalInforCol1, personalInforCol2, personalInforCol3) {
     return { personalInforCol1, personalInforCol2, personalInforCol3};
   }
@@ -53,39 +57,27 @@ function createContactInfoData(contactInforCol1, contactInforCol2, contactInforC
     return { contactInforCol1, contactInforCol2, contactInforCol3};
   }
 const PIrows = [
-    createPersonalInfoData(<Text><Text style={{fontWeight: "bold"}}> Name: </Text><Text> Abdul Rehman</Text></Text>,
-    <Text><Text style={{fontWeight: "bold"}}> DOB:  </Text><Text> 1/21/1987</Text></Text>,
-    <Text><Text style={{fontWeight: "bold"}}> Gender: </Text><Text> Male</Text></Text>),
-    createPersonalInfoData(<Text><Text style={{fontWeight: "bold"}}> CNIC: </Text><Text> 45305-0620870-4</Text></Text>,
-    <Text><Text style={{fontWeight: "bold"}}> Mobile No: </Text><Text> 03042934916</Text></Text>,
-    <Text><Text style={{fontWeight: "bold"}}> Nationality: </Text><Text> Pakistani</Text></Text>),
-    createPersonalInfoData(<Text><Text style={{fontWeight: "bold"}}> Email: </Text><Text> abdulrehman@gmail.com</Text></Text>,
-    <Text><Text style={{fontWeight: "bold"}}> Blood Group: </Text><Text> A+</Text></Text>)
+    createPersonalInfoData(<Text><Text style={{fontWeight: "bold"}}> Name: </Text><Text> {isUser?.teacherName}</Text></Text>,
+    <Text><Text style={{fontWeight: "bold"}}> DOB:  </Text><Text> {isUser?.teacherDOB.split('T')[0]}</Text></Text>,
+    <Text><Text style={{fontWeight: "bold"}}> Gender: </Text><Text> {isUser?.teacherGender}</Text></Text>),
+    createPersonalInfoData(<Text><Text style={{fontWeight: "bold"}}> CNIC: </Text><Text>{isUser?.teacherCNIC} </Text></Text>,
+    <Text><Text style={{fontWeight: "bold"}}> Mobile No: </Text><Text> {isUser?.teacherContactNo}</Text></Text>,
+    <Text><Text style={{fontWeight: "bold"}}> Email: </Text><Text> {isUser?.teacherEmail}</Text></Text>)
   ];
   const CIrows = [
-    createContactInfoData(<Text><Text style={{fontWeight: "bold"}}> Address: </Text><Text> Flat C2/08 Rupali Residency North Nazimabad</Text></Text>,
-    <Text><Text style={{fontWeight: "bold"}}> Address:  </Text><Text> Flat C2/08 Rupali Residency North Nazimabad</Text></Text>,
-    <Text><Text style={{fontWeight: "bold"}}> </Text><Text> </Text></Text>),
-    createContactInfoData(<Text><Text style={{fontWeight: "bold"}}> Home Phone: </Text><Text> 45305-0620870-4</Text></Text>,
-    <Text><Text style={{fontWeight: "bold"}}> Home Phone: </Text><Text> 03042934916</Text></Text>,
-    <Text><Text style={{fontWeight: "bold"}}> </Text><Text> </Text></Text>),
-    createContactInfoData(<Text><Text style={{fontWeight: "bold"}}> Postal Code: </Text><Text> 75301</Text></Text>,
-    <Text><Text style={{fontWeight: "bold"}}> Postal Code: </Text><Text> 75301</Text></Text>,
-    <Text><Text style={{fontWeight: "bold"}}> </Text><Text> </Text></Text>),
-    createContactInfoData(<Text><Text style={{fontWeight: "bold"}}> City: </Text><Text> Karachi</Text></Text>,
-    <Text><Text style={{fontWeight: "bold"}}> City: </Text><Text> Karachi</Text></Text>,
-    <Text><Text style={{fontWeight: "bold"}}> </Text><Text> </Text></Text>),
-    createContactInfoData(<Text><Text style={{fontWeight: "bold"}}> Country: </Text><Text> Pakistan</Text></Text>,
-    <Text><Text style={{fontWeight: "bold"}}> Country: </Text><Text> Pakistan</Text></Text>,
-    <Text><Text style={{fontWeight: "bold"}}> </Text><Text> </Text></Text>)
-  ];
+      createContactInfoData(<Text><Text style={{fontWeight: "bold"}}> Address: </Text><Text> {isUser?.teacherAddress} </Text></Text>,
+      <Text><Text style={{fontWeight: "bold"}}> Address:  </Text><Text> {isUser?.teacherAddress}</Text></Text>,
+      <Text><Text style={{fontWeight: "bold"}}> </Text><Text> </Text></Text>),
+      createContactInfoData(<Text><Text style={{fontWeight: "bold"}}> Home Phone: </Text><Text> {isUser?.teacherContactNo}</Text></Text>,
+      <Text><Text style={{fontWeight: "bold"}}> Home Phone: </Text><Text> {isUser?.teacherContactNo}</Text></Text>,
+      <Text><Text style={{fontWeight: "bold"}}> </Text><Text> </Text></Text>)
+    ];
     export default function ControlledExpansionPanels() {
         const [expanded, setExpanded] = React.useState(false)
         const handleChange = (panel) => (event, isExpanded) => {
             setExpanded(isExpanded ? panel : false)
         }
-    
-        return (
+    return (
             <Container justifyContent="center">
                    <Grid color="primary" container spacing={2} justifyContent="center">
       {[lightTheme].map((theme, index) => (

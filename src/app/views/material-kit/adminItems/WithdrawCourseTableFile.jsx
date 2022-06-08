@@ -99,7 +99,7 @@ const CourseRegisterationTableFile = () => {
             <div className="breadcrumb">
                 <Breadcrumb
                     routeSegments={[
-                        { name: 'Material', path: '/material' },
+                        { name: 'Semester Operations', path: '/material' },
                         { name: 'Withdraw Course' },
                     ]}
                 />

@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import AddTeacherForm from './AddTeacherForm'
 import { Span } from 'app/components/Typography'
 import { Breadcrumb, SimpleCard } from 'app/components'
 import { Box, styled } from '@mui/system'
 import { Button, Icon } from '@mui/material'
 import axios from 'axios'
+import {variables} from '../Variables';
+
 
 const Container = styled('div')(({ theme }) => ({
     margin: '30px',
@@ -22,12 +24,13 @@ const StyledButton = styled(Button)(({ theme }) => ({
     margin: theme.spacing(1),
 }))
 const AddTeacherFormFile = () => {
+    
     return (
         <Container>
             <div className="breadcrumb">
                 <Breadcrumb
                     routeSegments={[
-                        { name: 'Material', path: '/material' },
+                        { name: 'Plan Semester', path: '/material' },
                         { name: 'Add Teacher Form' },
                     ]}
                 />

@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState} from 'react'
 import {StyleSheet, Text} from 'react-native'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
@@ -12,6 +12,8 @@ import Typography from '@mui/material/Typography'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import { Box } from '@mui/system'
+import Moment from 'moment';
+//import UploadStudent from '../../../app/components/Student/UploadStudent'
 
 const ItemHead = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -45,6 +47,16 @@ const Container = styled('div')(({ theme }) => ({
         },
     },
 }))
+const formatDate = Moment().format('DD-MM-YYYY')
+
+const StudentDashboard = () => {
+  const [studentInfo, setStudentInfo] = useState({
+    studentName: ''
+    })
+
+    let isUser = JSON.parse(localStorage.getItem('stdDetails'))
+    console.log('user',isUser)
+    
 function createFamilyInfoData(familyInforCol1,familyInforCol2,familyInforCol3) {
   return { familyInforCol1,familyInforCol2,familyInforCol3};
 }
@@ -57,54 +69,49 @@ function createPersonalInfoData(personalInforCol1, personalInforCol2, personalIn
 function createContactInfoData(contactInforCol1, contactInforCol2, contactInforCol3) {
     return { contactInforCol1, contactInforCol2, contactInforCol3};
   }
-  const FIrows = [
-    createFamilyInfoData(<Text><Text style={{fontWeight: "bold"}}> Father: </Text><Text> Dost Muhammad</Text></Text>,
-    <Text><Text style={{fontWeight: "bold"}}> CNIC:  </Text><Text> 45305-062030-2</Text></Text>,
-    <Text><Text style={{fontWeight: "bold"}}> Email: </Text><Text> dostMuhammad22@gmail.com</Text></Text>)
-  ];
+
+  let department = JSON.parse(localStorage.getItem('deptDetails'))
+  console.log('My department is',department)
+  
+  let degree = JSON.parse(localStorage.getItem('programDetails'))
+  console.log('My degree is',degree)
+  
+  let campus = JSON.parse(localStorage.getItem('campusDetails'))
+  console.log('My campus is',campus)
+  
+  let semester = JSON.parse(localStorage.getItem('semesterDetails'))
+  console.log('My semester is',semester)
+  
   const UIrows = [
-    createUniInfoData(<Text><Text style={{fontWeight: "bold"}}> Name: </Text><Text> Wajeeha Memon</Text></Text>,
-    <Text><Text style={{fontWeight: "bold"}}> DOB:  </Text><Text> 02/24/1997</Text></Text>,
-    <Text><Text style={{fontWeight: "bold"}}> Gender: </Text><Text> Female</Text></Text>),
-    createUniInfoData(<Text><Text style={{fontWeight: "bold"}}> CNIC: </Text><Text> 45305-062030-2</Text></Text>,
-    <Text><Text style={{fontWeight: "bold"}}> Mobile No: </Text><Text> 03330387753</Text></Text>,
-    <Text><Text style={{fontWeight: "bold"}}> Nationality: </Text><Text> Pakistani</Text></Text>),
-    createUniInfoData(<Text><Text style={{fontWeight: "bold"}}> Email: </Text><Text> wajeeha81@gmail.com</Text></Text>,
-    <Text><Text style={{fontWeight: "bold"}}> Blood Group: </Text><Text> A+</Text></Text>)
+    createUniInfoData(<Text><Text style={{fontWeight: "bold"}}> Roll No: </Text><Text> {isUser?.studentRollNo}</Text></Text>,
+    <Text><Text style={{fontWeight: "bold"}}> Degree:  </Text><Text>{degree.programCode}</Text></Text>,
+    <Text><Text style={{fontWeight: "bold"}}> Department: </Text><Text>{department.departmentCode}</Text></Text>),
+    createUniInfoData(<Text><Text style={{fontWeight: "bold"}}> Campus: </Text><Text> {campus.campusName}</Text></Text>,
+    <Text><Text style={{fontWeight: "bold"}}> Status: </Text><Text>Active</Text></Text>,
+    <Text><Text style={{fontWeight: "bold"}}> Semester: </Text><Text>{semester.semesterSeason + " "+ semester.semesterYear}</Text></Text>)
+  
   ];
-const PIrows = [
-    createPersonalInfoData(<Text><Text style={{fontWeight: "bold"}}> Name: </Text><Text> Wajeeha Memon</Text></Text>,
-    <Text><Text style={{fontWeight: "bold"}}> DOB:  </Text><Text> 02/24/1997</Text></Text>,
-    <Text><Text style={{fontWeight: "bold"}}> Gender: </Text><Text> Female</Text></Text>),
-    createPersonalInfoData(<Text><Text style={{fontWeight: "bold"}}> CNIC: </Text><Text> 45305-062030-2</Text></Text>,
-    <Text><Text style={{fontWeight: "bold"}}> Mobile No: </Text><Text> 03330387753</Text></Text>,
-    <Text><Text style={{fontWeight: "bold"}}> Nationality: </Text><Text> Pakistani</Text></Text>),
-    createPersonalInfoData(<Text><Text style={{fontWeight: "bold"}}> Email: </Text><Text> wajeeha81@gmail.com</Text></Text>,
-    <Text><Text style={{fontWeight: "bold"}}> Blood Group: </Text><Text> A+</Text></Text>)
+  const PIrows = [
+    createPersonalInfoData(<Text><Text style={{fontWeight: "bold"}}> Name: </Text>{isUser?.studentName}</Text>,
+    <Text><Text style={{fontWeight: "bold"}}> DOB:  </Text>{(isUser?.studentDOB).split('T')[0]}</Text>,
+    <Text><Text style={{fontWeight: "bold"}}> Gender: </Text>{isUser?.studentGender}</Text>),
+    createPersonalInfoData(<Text><Text style={{fontWeight: "bold"}}> CNIC: </Text>{isUser?.studentCNIC}</Text>,
+    <Text><Text style={{fontWeight: "bold"}}> Mobile No: </Text>{isUser?.studentContactNo}</Text>,
+    <Text><Text style={{fontWeight: "bold"}}> Email: </Text>{isUser?.studentEmail}</Text>)
   ];
   const CIrows = [
-    createContactInfoData(<Text><Text style={{fontWeight: "bold"}}> Address: </Text><Text> House No#C2-08, Phase#02, Gulshan-e-Hadeed</Text></Text>,
-    <Text><Text style={{fontWeight: "bold"}}> Address:  </Text><Text> Flat C2/08 Rupali Residency Gulshan-E-Iqbal Block 19</Text></Text>,
+    createContactInfoData(<Text><Text style={{fontWeight: "bold"}}> Address: </Text><Text> {isUser?.studentAddress} </Text></Text>,
+    <Text><Text style={{fontWeight: "bold"}}> Address:  </Text><Text> {isUser?.studentAddress}</Text></Text>,
     <Text><Text style={{fontWeight: "bold"}}> </Text><Text> </Text></Text>),
-    createContactInfoData(<Text><Text style={{fontWeight: "bold"}}> Home Phone: </Text><Text> 03330387753</Text></Text>,
-    <Text><Text style={{fontWeight: "bold"}}> Home Phone: </Text><Text> 03042934916</Text></Text>,
-    <Text><Text style={{fontWeight: "bold"}}> </Text><Text> </Text></Text>),
-    createContactInfoData(<Text><Text style={{fontWeight: "bold"}}> Postal Code: </Text><Text> 63501</Text></Text>,
-    <Text><Text style={{fontWeight: "bold"}}> Postal Code: </Text><Text> 75301</Text></Text>,
-    <Text><Text style={{fontWeight: "bold"}}> </Text><Text> </Text></Text>),
-    createContactInfoData(<Text><Text style={{fontWeight: "bold"}}> City: </Text><Text> Karachi</Text></Text>,
-    <Text><Text style={{fontWeight: "bold"}}> City: </Text><Text> Karachi</Text></Text>,
-    <Text><Text style={{fontWeight: "bold"}}> </Text><Text> </Text></Text>),
-    createContactInfoData(<Text><Text style={{fontWeight: "bold"}}> Country: </Text><Text> Pakistan</Text></Text>,
-    <Text><Text style={{fontWeight: "bold"}}> Country: </Text><Text> Pakistan</Text></Text>,
+    createContactInfoData(<Text><Text style={{fontWeight: "bold"}}> Home Phone: </Text><Text> {isUser?.studentGuardianNo}</Text></Text>,
+    <Text><Text style={{fontWeight: "bold"}}> Home Phone: </Text><Text> {isUser?.studentGuardianNo}</Text></Text>,
     <Text><Text style={{fontWeight: "bold"}}> </Text><Text> </Text></Text>)
   ];
-    export default function ControlledExpansionPanels() {
-        const [expanded, setExpanded] = React.useState(false)
-        const handleChange = (panel) => (event, isExpanded) => {
-            setExpanded(isExpanded ? panel : false)
-        }
-    
+  const FIrows = [
+    createFamilyInfoData(<Text><Text style={{fontWeight: "bold"}}> Father: </Text><Text> {isUser?.studentGuardianName}</Text></Text>,
+    <Text><Text style={{fontWeight: "bold"}}> CNIC:  </Text><Text> {isUser?.studentCNIC}</Text></Text>,
+    <Text><Text style={{fontWeight: "bold"}}> Contact: </Text><Text> {isUser?.studentGuardianNo}</Text></Text>)
+  ];   
         return (
             <Container justifyContent="center">
                    <Grid color="primary" container spacing={2} justifyContent="center">
@@ -133,8 +140,7 @@ const PIrows = [
               <TableCell align="left">{row.uniInforCol2}</TableCell>
               <TableCell align="left">{row.uniInforCol3}</TableCell>
             </TableRow>
-            
-          ))}
+            ))}
         </TableBody>
       </Table>
     </TableContainer>
@@ -235,5 +241,7 @@ const PIrows = [
     </Grid>
             </Container>
         )
-    }
-    
+}
+ 
+
+export default StudentDashboard

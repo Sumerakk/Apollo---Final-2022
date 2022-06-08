@@ -29,14 +29,9 @@ export const StudentNavigation = [
         path: '/material/AddCourseform',
     },
     {
-        name: 'Calculate CGPA',
+        name: 'Calculate SGPA',
         icon: 'exposure',
         path: '/material/CalculateCGPAForm',
-    },
-    {
-        name: 'Fee Challan',
-        icon: 'local_atm',
-        path: '/material/AddCourseform',
     },
     {
         name: 'Course Feedback',

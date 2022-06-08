@@ -106,13 +106,16 @@ export const AuthProvider = ({ children }) => {
         
         let eachUser = JSON.parse(localStorage.getItem('userDetails'))
         console.log('user',eachUser)
-        if(eachUser.roleID == '3'){
-            navigate('/dashboard/teacher')
+        if(eachUser.roleID == '0'){
+            navigate('/dashboard/superuser')
         }
-        else if(eachUser.roleID == '4'){
-            navigate('/dashboard/student')
+        else if(eachUser.roleID == '1'){
+            navigate('/dashboard/admin')
         }
         else if(eachUser.roleID == '2'){
+            navigate('/dashboard/teacher')
+        }
+        else if(eachUser.roleID == '3'){
             navigate('/dashboard/student')
         }
         else{

@@ -19,6 +19,7 @@ import { useNavigate } from 'react-router-dom'
 import { render } from 'react-dom';
 import TextField from '@mui/material/TextField';
 import * as _ from 'lodash'
+import { add } from 'mathjs'
 
 const TextField1 = styled(TextValidator)(() => ({
     width: '100%',
@@ -55,25 +56,22 @@ const AssignTeacherform = () => {
     const [ marks3, setmarks3] = React.useState(null)
     const [ marks4, setmarks4] = React.useState(null)*/
 
-    const [SE, setSE] = useState(0);
-    const [AdvSE, setAdvSE] = useState(0);
-    const [SQA, setSQA] = useState(0);
-    const [SPM, setSPM] = useState(0);
+    const [SE, setSE] = useState();
+    const [AdvSE, setAdvSE] = useState();
+    const [SQA, setSQA] = useState();
+    const [SPM, setSPM] = useState();
+ 
 
-    const [SE_GPA, setSE_GPA] = useState(0);
-    const [AdvSE_GPA, setAdvSE_GPA] = useState(0);
-    const [SQA_GPA, setSQA_GPA] = useState(0);
-    const [SPM_GPA, setSPM_GPA] = useState(0);
-
+    const [SE_GPA, setSE_GPA] = useState();
+    const [AdvSE_GPA, setAdvSE_GPA] = useState();
+    const [SQA_GPA, setSQA_GPA] = useState();
+    const [SPM_GPA, setSPM_GPA] = useState();
+    const [SGPA, setSGPA] = useState();
 
     const [state, setState] = useState({
         date: new Date(),
     })
 
-    const handleSubmit = (event) => {
-        // console.log("submitted");
-        // console.log(event);
-    }
     const handleSEMarks = (event) => {
         console.log("SE => ", event.target.value)
         setSE(event.target.value);
@@ -90,18 +88,89 @@ const AssignTeacherform = () => {
         console.log("SQA => ", event.target.value)
         setSQA(event.target.value);
     }
+    const handleSGPA = (event) => {
+        console.log("SGPA => ", event.target.value)
+        setSGPA(event.target.value);
+    }
+    const calculateSGPA = (setSE_GPA,setAdvSE_GPA,setSQA_GPA,setSPM_GPA)=> {
+        console.log("SGPA is: => ", JSON.stringify(SE_GPA))
+        
+      //console.log ('I am from semester table: ', semester)
+        localStorage.setItem('course1GPA', JSON.stringify(SE_GPA))
+        const c1GPA = JSON.parse(localStorage.getItem('course1GPA'))
+        console.log('My GPA for course 1 is',c1GPA)
 
+        localStorage.setItem('course2GPA', JSON.stringify(AdvSE_GPA))
+        const c2GPA = JSON.parse(localStorage.getItem('course2GPA'))
+        console.log('My GPA for course 1 is',c2GPA)
+
+
+        localStorage.setItem('course3GPA', JSON.stringify(SQA_GPA))
+        const c3GPA = JSON.parse(localStorage.getItem('course3GPA'))
+        console.log('My GPA for course 1 is',c3GPA)
+
+        localStorage.setItem('course4GPA', JSON.stringify(SPM_GPA))
+        const c4GPA = JSON.parse(localStorage.getItem('course4GPA'))
+        console.log('My GPA for course 1 is',c4GPA)
+
+        const creditHours = 3;
+        const numOfCourse = 4;
+        const totalCreditHours = creditHours * numOfCourse;
+
+        const valSGPA = ((c1GPA * creditHours) + (c2GPA * creditHours) + (c3GPA * creditHours) + (c4GPA * creditHours))/ totalCreditHours;
+        return (valSGPA).toFixed(2)
+    }
     const calculateGPA = (marks) => {
         console.log("Marks received => ", marks, ((marks - 50) / 12) + 1)
         var valGPA = ((marks - 50) / 12) + 1;
-        if (valGPA >= 4) {
+        if((valGPA) >= 4)
+        {
             return 4;
-        } else {
-            console.log("GPA => ", valGPA)
-            return valGPA;
+        } 
+        else if((valGPA).toFixed(2) >= 3.66 && (valGPA).toFixed(2) < 4)
+        {
+            return 3.67;
+        }
+        else if((valGPA) >= 3.33 && (valGPA) < 3.67)
+        {
+            return 3.33;
+        }
+        else if((valGPA) >= 3 && (valGPA) < 3.33)
+        {
+            return 3;
+        }
+        else if((valGPA.toFixed(2)) >= 2.66 && (valGPA).toFixed(2) < 3)
+        {
+            return 2.67;
+        }
+        else if((valGPA) >= 2.33 && (valGPA) < 2.67)
+        {
+            return 2.33;
+        }
+        else if(valGPA >= 2 && valGPA < 2.33)
+        {
+            return 2;
+        }
+        else if((valGPA).toFixed(2) >= 1.67 && (valGPA).toFixed(2) < 2)
+        {
+            return 1.67;
+        }
+        else if((valGPA) >= 1.33 && (valGPA) < 1.67)
+        {
+            return 1.33;
+        }
+        else if((valGPA) >= 1 && (valGPA) < 1.33)
+        {
+            return 1;
+        }
+        else
+        {
+           return 'FAIL'
         }
     }
-
+    /*const onSubmit = (marks1,marks2,marks3,marks4) => {
+        setSGPA(calculateSGPA(marks1,marks2,marks3,marks4));
+    }*/
     const onClickSE = (marks) => {
         setSE_GPA(calculateGPA(marks));
     }
@@ -114,13 +183,17 @@ const AssignTeacherform = () => {
     const onClickSQA = (marks) => {
         setSQA_GPA(calculateGPA(marks));
     }
+    const onClickCalculateSGPA = (valGPA) => {
+        setSGPA(calculateSGPA(valGPA));
+    }
+
 
     const { marks1, marks2, marks3, marks4 } = state
     const { ClassHours1, ClassHours2, ClassHours3, } = state
     const { CrsName, gpa, } = state
 
     return (
-        <ValidatorForm onSubmit={handleSubmit} onError={() => null}>
+        <ValidatorForm onSubmit={calculateSGPA} onError={() => null}>
 
             <TableHead>
                 <TableRow>
@@ -144,7 +217,7 @@ const AssignTeacherform = () => {
                 </TableCell>
                 <TableCell style={{ marginLeft: '5%', width: 160 }}>
                     <TextField
-                        type="number"
+                        type="text"
                         name="marks1"
                         id="standard-basic"
                         onChange={handleSEMarks}
@@ -152,7 +225,7 @@ const AssignTeacherform = () => {
                         validators={[
                             'required',
                         ]}
-                        label="Marks (Min 0, Max 100)"
+                        label="Marks (Min 50, Max 100)"
                         variant="outlined"
                         errorMessages={['This field is required']}
                     />
@@ -164,7 +237,7 @@ const AssignTeacherform = () => {
                         </Span>
                     </Button>
                 </TableCell>
-                <TableCell style={{ marginLeft: '5%', width: 130 }}>
+                <TableCell align="center">
                     {SE_GPA}
                 </TableCell>
 
@@ -175,7 +248,7 @@ const AssignTeacherform = () => {
                 </TableCell>
                 <TableCell style={{ marginLeft: '5%', width: 150 }}>
                     <TextField
-                        type="number"
+                        type="text"
                         name="marks2"
                         id="standard-basic"
                         onChange={handleAdvSEMarks}
@@ -188,16 +261,15 @@ const AssignTeacherform = () => {
                     />
                 </TableCell>
                 <TableCell style={{ marginLeft: '5%', width: 80 }}>
-                    <Button style={{ marginLeft: '20%', width: 140 }} onClick={() => { }} color="primary" variant="contained" type="submit">
+                    <Button style={{ marginLeft: '20%', width: 140 }} disabled={_.isNil(AdvSE)} onClick={() => { onClickAdvSE(AdvSE)}} color="primary" variant="contained" type="submit">
                         <Span sx={{ pl: 1, textTransform: 'capitalize' }}>
                             Calculate
                         </Span>
                     </Button>
                 </TableCell>
-                <TableCell style={{ marginLeft: '5%', width: 130 }}>
-                    {/* {AdvSE_GPA > 0 ? AdvSE_GPA : ""} */}
+                <TableCell align="center">
+                {AdvSE_GPA}
                 </TableCell>
-
             </TableRow>
             <TableRow>
                 <TableCell style={{ marginLeft: '5%', width: 300 }}>
@@ -205,7 +277,7 @@ const AssignTeacherform = () => {
                 </TableCell>
                 <TableCell style={{ marginLeft: '5%', width: 150 }}>
                     <TextField
-                        type="number"
+                        type="text"
                         name="marks3"
                         id="standard-basic"
                         onChange={handleSPMMarks}
@@ -218,24 +290,23 @@ const AssignTeacherform = () => {
                     />
                 </TableCell>
                 <TableCell style={{ marginLeft: '5%', width: 200 }}>
-                    <Button style={{ marginLeft: '20%', width: 140 }} onClick={() => { }} color="primary" variant="contained" type="submit">
+                    <Button style={{ marginLeft: '20%', width: 140 }} disabled={_.isNil(SPM)} onClick={() => { onClickSPM(SPM)}} color="primary" variant="contained" type="submit">
                         <Span sx={{ pl: 1, textTransform: 'capitalize' }}>
                             Calculate
                         </Span>
                     </Button>
                 </TableCell>
-                <TableCell style={{ marginLeft: '5%', width: 130 }}>
-                    {/* {SPM_GPA > 0 ? SPM_GPA : ""} */}
+                <TableCell align="center">
+                {SPM_GPA}
                 </TableCell>
-
-            </TableRow>
+                </TableRow>
             <TableRow>
                 <TableCell style={{ marginLeft: '5%', width: 250 }}>
                     Software Quality Assurance
                 </TableCell>
                 <TableCell style={{ marginLeft: '5%', width: 150 }}>
                     <TextField
-                        type="number"
+                        type="text"
                         name="marks4"
                         id="standard-basic"
                         onChange={handleSQAMarks}
@@ -248,22 +319,31 @@ const AssignTeacherform = () => {
                     />
                 </TableCell>
                 <TableCell style={{ marginLeft: '5%', width: 200 }}>
-                    <Button style={{ marginLeft: '20%', width: 140 }} onClick={() => { }} color="primary" variant="contained" type="submit">
+                    <Button style={{ marginLeft: '20%', width: 140 }} disabled={_.isNil(SQA)} onClick={() => { onClickSQA(SQA)}} color="primary" variant="contained" type="submit">
                         <Span sx={{ pl: 1, textTransform: 'capitalize' }}>
                             Calculate
                         </Span>
                     </Button>
                 </TableCell>
-                <TableCell style={{ marginLeft: '5%', width: 130 }}>
-                    {/* {SQA_GPA > 0 ? SQA_GPA : ""} */}
+                <TableCell align="center">
+                    {SQA_GPA}
                 </TableCell>
-
+              
             </TableRow>
             <Box py="10px" />
-            <Button style={{ marginLeft: '1%', width: 140 }} color="primary" variant="contained" type="submit">
-                <Icon>send</Icon>
+            <TableRow>
+                <TableCell style={{ marginLeft: '5%', width: 250 }}>
+                   <h3><b>       Semester GPA is:      </b> {SGPA}</h3>
+                    
+                </TableCell>
+                <TableCell>
+                </TableCell>
+            </TableRow>
+            <Box py="10px" />
+            <Button style={{ marginLeft: '4%' , width: 180 }} onClick={() => { onClickCalculateSGPA()}} color="primary" variant="contained" type="submit">
+                <Icon>exposure</Icon>
                 <Span sx={{ pl: 1, textTransform: 'capitalize' }}>
-                    Submit
+                    Calculate SGPA
                 </Span>
             </Button>
         </ValidatorForm>

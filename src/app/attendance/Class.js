@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Student from './Student';
+import Student from './Students';
 import PropTypes from 'prop-types';
 
 class Class extends Component {

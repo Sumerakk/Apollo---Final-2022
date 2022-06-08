@@ -5,8 +5,11 @@ import {
     Radio,
     RadioGroup,
     FormControlLabel,
-    Checkbox,
+    Checkbox,  
+    Alert,
+    Snackbar
 } from '@mui/material'
+import axios from 'axios'
 import { styled } from '@mui/system'
 import { Span } from 'app/components/Typography'
 import React, { useState, useEffect, Fragment} from 'react'
@@ -15,8 +18,8 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns'
 import LocalizationProvider from '@mui/lab/LocalizationProvider'
 import { DatePicker } from '@mui/lab'
 import {Autocomplete} from '@mui/material'
-import axios from 'axios'
 import { createFilterOptions } from '@mui/material/Autocomplete'
+import { index } from 'mathjs'
 
 const TextField = styled(TextValidator)(() => ({
     width: '100%',
@@ -44,68 +47,47 @@ const AppButtonRoot = styled('div')(({ theme }) => ({
     },
 }))
 
-/*const response = await axios.get('http://localhost:5000/AddTeacher')
+const AddTeacherForm = () => {
+    
+    const url = "http://localhost:5000/Teacher";
+    const [teacherInfo, setTeacherInfo] = useState({
+        teacherName:"",
+        teacherDesignation:"",
+        teacherCNIC:"",
+        teacherGender:"",
+        teacherAddress:"",
+        teacherContactNo:"",
+        teacherEmail:"",
+        departmentID: "",
+        tUsername:""
+    }) 
+    const [teacherBirthDate, setTeacherBirthDate] = useState({
+        teacherDOB: new Date(),
+    }) 
 
-const { departmentID } = JSON.parse(config.data)
-const user = response.data.find(departmentID)
-console.log(user)*/
+    const [teacherEED, setTeacherEED] = useState({
+        effectiveDateEnd: new Date(),
+    })   
+    const [teacherESD, setTeacherEST] = useState({
+        effectiveDateStart: new Date(),
+    })  
 
-
-/*
-  useEffect(() => {
-    setAppState({ loading: true });
-    const apiUrl = 'http://localhost:5000/AddTeacher';
-    axios.post(apiUrl).then((repos) => {
-      const allRepos = repos.data;
-      setAppState({ loading: false, repos: allRepos });
-    });
-  }, [setAppStateforPost]);*/
-
-const AddCourseForm = () => {
-
-    const [departments, setDepartments] = useState([]);
-    const[departmentsMatch, setDepartmentsMatch] = useState([]);
-
-/*useEffect(() => {
-    const loadDepartments = async => {
-        //const response = await axios.get('http://localhost:5000/AddTeacher');
-        setDepartments(response.data);
-    };
-    loadDepartments();
-  }, []);*/
-  console.log(departments)
-  
-    const department = [departments];
+    const handleChange = ({ target: { name, value } }) => {
+        console.log(name);
+        console.log(value);
+        const newdata = { ...teacherInfo }
+        newdata[name] = value
+        setTeacherInfo(newdata)
+    }
+    const handleDepartmentChange = (e, v, r) => {
+        teacherInfo.departmentID = v.departmentCode;
+    }
+    let departmentData = JSON.parse(localStorage.getItem('deparmentDetails'))
+       
     const [state, setState] = useState({
         date: new Date(),
-    })
-    const [value, setValue] = React.useState(null)
-    const handleChangedropdown = (event, newValue) => {
-        if (newValue && newValue.inputValue) {
-            setValue({
-                label: newValue.inputValue,
-            })
-            return
-        }
-        setValue(newValue)
-    }
-    const filter = createFilterOptions()
-    const filterOptions = (options, params) => {
-        const filtered = filter(options, params)
-        if (params.inputValue !== '') {
-            filtered.push({
-                inputValue: params.inputValue,
-                label: `Add "${params.inputValue}"`,
-            })
-        }
-        return filtered
-    }
-     /*const [selectedValue, setSelectedValue] = React.useState(null);
-    const handleChangedropdown = obj => {
-    setSelectedValue(obj);
-  }*/
-
-    useEffect(() => {
+    })  
+     useEffect(() => {
         ValidatorForm.addValidationRule('isPasswordMatch', (value) => {
             console.log(value)
 
@@ -117,46 +99,74 @@ const AddCourseForm = () => {
         return () => ValidatorForm.removeValidationRule('isPasswordMatch')
     }, [state.password])
 
-    const handleSubmit = (event) => {
-        // console.log("submitted");
-        // console.log(event);
+    function resetFormData()
+    {
+        setTeacherInfo({})
+        setTeacherBirthDate({teacherDOB: new Date()})
+        setTeacherEED({effectiveDateEnd: new Date()})
+        setTeacherEST({effectiveDateStart: new Date()})
     }
-
-    const handleChange = (event) => {
-        event.persist()
-        setState({
-            ...state,
-            [event.target.name]: event.target.value,
-        })
+    function handleDateChange(teacherDOB) {
+        setTeacherBirthDate(teacherDOB)
     }
-
-    const handleDateChange = (teacherDOB) => {
-        setState({ ...state, teacherDOB })
+ 
+    function handleESDDateChange(effectiveDateStart) {
+        setTeacherEST(effectiveDateStart)
+    }    
+  
+    function handleEEDDateChange(effectiveDateEnd) {
+        setTeacherEED(effectiveDateEnd)
     } 
-    const handleStartDateChange = (effectiveStartDate) => {
-        setState({ ...state, effectiveStartDate })
+  
+    function handleSubmit(e) {
+        e.preventDefault();
+        console.log(teacherInfo);
+            axios.post (url, {
+            teacherName: teacherInfo.teacherName,
+            teacherDesignation: teacherInfo.teacherDesignation,
+            teacherCNIC: teacherInfo.teacherCNIC,
+            teacherDOB: teacherBirthDate,
+            teacherGender: teacherInfo.teacherGender,
+            teacherAddress: teacherInfo.teacherAddress,
+            teacherContactNo: teacherInfo.teacherContactNo,
+            teacherEmail: teacherInfo.teacherEmail,
+            effectiveDateStart: teacherESD,
+            effectiveDateEnd: teacherEED,            
+            departmentID: (teacherInfo.departmentID == 'CS' ? 1 : (teacherInfo.departmentID == 'BBA' ? 2 : (teacherInfo.departmentID == 'EE' ? 3 : null))),
+            tUsername: teacherInfo.tUsername,
+            
+        })
+        .then(res => {
+        console.log ("Data resultfrom API call is",res)
+        setOpen(true)
+        resetFormData()
+    }).catch((error) => console.log(error.res));
+}
+const [open, setOpen] = React.useState(false)
+function handleClick() {
+   
+    setOpen(true)
+}
+function handleClose(event, reason) {
+    if (reason === 'clickaway') {
+        return
     }
-    const handleEndDateChange = (effectiveEndDate) => {
-        setState({ ...state, effectiveEndDate })
-    }
-    const {
-        teacherName,
-        teacherdesignation,
-        teacherImage,
-        teacherCNIC,
-        teacherDOB,
-        teacherGender,
-        teacherAddress,
-        teacherContactNo,
-        teacherEmail,
-        teacherDepartment,
-        effectiveStartDate,
-        effectiveEndDate,
-       } = state
+    setOpen(false)
+}
 
     return (
         <div>
-            <ValidatorForm onSubmit={handleSubmit} onError={() => null}>
+            <ValidatorForm onSubmit={handleSubmit} onError={() => null} >
+            <Snackbar open={open} autoHideDuration={1500} onClose={handleClose}>
+                <Alert
+                    onClose={handleClose}
+                    severity="success"
+                    sx={{ width: '100%', mb: 90, ml: 90}}
+                    variant="filled"   
+                >
+                    Course added Successfully!
+                </Alert>
+            </Snackbar>
                <Grid container justifyContent="center">
                     <Grid item lg={6} md={6} sm={12} xs={12} sx={{ mt: 2 }}>
                     <TextField
@@ -164,17 +174,27 @@ const AddCourseForm = () => {
                             name="teacherName"
                             id="standard-basic"
                             onChange={handleChange}
-                            value={teacherName || ''}
+                            value={teacherInfo.teacherName || ''}
                             validators={['required' ]}
                             label="Name"
                             errorMessages={['this field is required']}
                         />
                         <TextField
                             type="text"
-                            name="teacherdesignation"
+                            name="tUsername"
                             id="standard-basic"
                             onChange={handleChange}
-                            value={teacherdesignation || ''}
+                            value={teacherInfo.tUsername || ''}
+                            validators={['required' ]}
+                            label="Username"
+                            errorMessages={['this field is required']}
+                        />
+                        <TextField
+                            type="text"
+                            name="teacherDesignation"
+                            id="standard-basic"
+                            onChange={handleChange}
+                            value={teacherInfo.teacherDesignation || ''}
                             validators={['required']}
                             label="Designation"
                             errorMessages={['this field is required']}
@@ -184,17 +204,18 @@ const AddCourseForm = () => {
                             name="teacherCNIC"
                             id="standard-basic"
                             onChange={handleChange}
-                            value={teacherCNIC || ''}
+                            value={teacherInfo.teacherCNIC || ''}
                             validators={[
                             'required',
                             'minStringLength:13']}
                             label="CNIC"
                             errorMessages={['this field is required']}
                         />
-                        <LocalizationProvider dateAdapter={AdapterDateFns}>
+                         <LocalizationProvider dateAdapter={AdapterDateFns}>
                             <DatePicker
-                                value={teacherDOB}
+                                value={teacherBirthDate}
                                 onChange={handleDateChange}
+                                name="teacherDOB"
                                 renderInput={(props) => (
                                     <TextField
                                         {...props}
@@ -208,7 +229,7 @@ const AddCourseForm = () => {
                         </LocalizationProvider>
                         <RadioGroup                        
                             sx={{ mb: 2 }}
-                            value={teacherGender || ''}
+                            value={teacherInfo.teacherGender || ''}
                             name="teacherGender"
                             onChange={handleChange}
                             row
@@ -231,7 +252,7 @@ const AddCourseForm = () => {
                             onChange={handleChange}
                             type="text"
                             name="teacherAddress"
-                            value={teacherAddress || ''}
+                            value={teacherInfo.teacherAddress || ''}
                             validators={['required']}
                             errorMessages={['this field is required']}
                         />
@@ -240,7 +261,7 @@ const AddCourseForm = () => {
                             onChange={handleChange}
                             type="text"
                             name="teacherContactNo"
-                            value={teacherContactNo || ''}
+                            value={teacherInfo.teacherContactNo || ''}
                             validators={['required']}
                             errorMessages={['this field is required']}
                         />
@@ -249,31 +270,39 @@ const AddCourseForm = () => {
                             onChange={handleChange}
                             type="teacherEmail"
                             name="teacherEmail"
-                            value={teacherEmail || ''}
+                            value={teacherInfo.teacherEmail || ''}
                             validators={['required', 'isEmail']}
                             errorMessages={[
                                 'this field is required',
                                 'email is not valid',
                             ]}
                         />
-                     <Autocomplete
-                           options={department}
-                           getOptionLabel={(option) => option.label}
+                   <Autocomplete
+                           name="departmentID"
+                           options={departmentData}
+                           getOptionLabel={(option) => option.departmentCode}
+                           isOptionEqualToValue={(option, value) => option.departmentCode === value.departmentCode}
+                           onInputChange={(e, v, r) => {
+                            console.log(v);
+                          }}
+                          onChange={handleDepartmentChange}
                            renderInput={(params) => (
                           <TextField
                             {...params}
                             label="Department"
                             variant="outlined"
                             fullWidth
-                            validators={['required']}
-                            errorMessages={['this field is required']}
+                            //validators={['required']}
+                           // errorMessages={['this field is required']}
                           />
                               )}
                        />
                         <LocalizationProvider dateAdapter={AdapterDateFns}>
                             <DatePicker
-                                value={effectiveStartDate}
-                                onChange={handleStartDateChange}
+                                
+                                value={teacherESD}
+                                name="effectiveDateStart"
+                                onChange={handleESDDateChange}
                                 renderInput={(props) => (
                                     <TextField
                                         {...props}
@@ -287,8 +316,9 @@ const AddCourseForm = () => {
                         </LocalizationProvider>
                         <LocalizationProvider dateAdapter={AdapterDateFns}>
                             <DatePicker
-                                value={effectiveEndDate}
-                                onChange={handleEndDateChange}
+                                value={teacherEED}
+                                name="effectiveDateEnd"
+                                onChange={handleEEDDateChange}
                                 renderInput={(props) => (
                                     <TextField
                                         {...props}
@@ -313,4 +343,4 @@ const AddCourseForm = () => {
     )
 }
 
-export default AddCourseForm
+export default AddTeacherForm

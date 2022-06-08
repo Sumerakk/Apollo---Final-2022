@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import {
     Table,
     TableHead,
@@ -6,10 +6,13 @@ import {
     TableBody,
     IconButton,
     TableRow,
+    Container,
 } from '@mui/material'
+import axios from 'axios'
 import { Checkbox } from '@mui/material'
 import { Box, styled } from '@mui/system'
 import { Icon, Button, Fab } from '@mui/material'
+
 
 const StyledTable = styled(Table)(({ theme }) => ({
     whiteSpace: 'pre',
@@ -31,140 +34,91 @@ const StyledTable = styled(Table)(({ theme }) => ({
     },
 }))
 
-const subscribarList = [
-    {
-        name: 'CS-101',
-        date: '03',
-        company: 'Computer Programing Language',
-        status: 'Core',
-    },
-    {
-        name: 'CS-101-Lab',
-        date: '01',
-        company: 'Computer Programing Language - Lab',
-        status: 'Core',
-    },
-    {
-        name: 'CS-102',
-        date: '03',
-        company: 'Data Structures',
-        status: 'Core',
-    },
-    {
-        name: 'CS-201',
-        date: '03',
-        company: 'Database Systems',
-        status: 'Core',
-    },
-    {
-        name: 'CS-201-Lab',
-        date: '01',
-        company: 'Database Systems - Lab',
-        status: 'Core',
-    },
-    {
-        name: 'CS-301',
-        date: '03',
-        company: 'Linear Algebra',
-        status: 'Core',
-    },
-    {
-        name: 'CS-601',
-        date: '03',
-        company: 'Marketing Management',
-        status: 'Elective',
-    },
-    {
-        name: 'CS-701',
-        date: '03',
-        company: 'Enterpreneurship',
-        status: 'Elective',
-    },
-    {
-        name: 'CS-114',
-        date: '03',
-        company: 'Human & Computer Interaction',
-        status: 'Core',
-    },
-    {
-        name: 'CS-112',
-        date: '03',
-        company: 'Computer organization & Assembly Language',
-        status: 'Core',
-    },
-    {
-        name: 'CS-311',
-        date: '03',
-        company: 'Discrete Structures',
-        status: 'Core',
-    },
-    {
-        name: 'CS-320',
-        date: '03',
-        company: 'Algorthims',
-        status: 'Core',
-    },
-    {
-        name: 'CS-322',
-        date: '03',
-        company: 'Probability & Statistics',
-        status: 'Core',
-    },
-]
+const OfferCourse = () => {
 
-const SimpleTable = () => {
-
-    const [state, setState] = React.useState({
-        checkedA: true,
-        checkedB: true,
-        checkedF: true,
+    const loadCourse= async() =>{
+    try{
+    axios.get('http://localhost:5000/Course')
+    .then(response => {
+        setCourse(response.data)
+        console.log('course result: ',response.data)
+        localStorage.setItem('courseList',JSON.stringify(response.data))
+        let coursesList = JSON.parse(localStorage.getItem('courseList'))
+        console.log("student search result",  coursesList   )
     })
+}catch (err){
+    console.error(err)
+    return [500, { message: 'Student not found!' }]
+}
+}
+useEffect(() => {
+ loadCourse()
+  }, []);
+
+    const [checkedState, setChekcedState] = useState([]);
+    const [course, setCourse] = useState([])
+    const [checkBoxValue, setCheckBoxValue] = useState([])
     
+
+    const handleCheckedBoxChange = (e) =>{
+        const {checked, name} = e.target;
+        if(checked){
+          setChekcedState((oldState) => ([...oldState, name]))
+        }else{
+          setChekcedState((oldState) => oldState.filter((courses) => courses !== name))
+        }
+      }
     const handleChange = (name) => (event) => {
-        setState({ ...state, [name]: event.target.checked })
+        setCheckBoxValue({ ...checkBoxValue, [name]: event.target.checked })
     }
 
     return (
+        //<Container justifyContent ="center">
         <Box width="100%" overflow="auto">
             <StyledTable>
                 <TableHead>
                     <TableRow>
-                        <TableCell>Course Code</TableCell>
+                        <TableCell align="center">Course Code</TableCell>
                         <TableCell>Course Name</TableCell>
                         <TableCell align="center">Course Credit Hours</TableCell>
-                        <TableCell>Course Type</TableCell>
-                        <TableCell>Action</TableCell>
+                        <TableCell align="center">Course Type</TableCell>
+                        <TableCell align="center">Action</TableCell>
                     </TableRow>
                 </TableHead>
+          
                 <TableBody>
-                    {subscribarList.map((subscriber, index) => (
-                        <TableRow key={index}>
-                            <TableCell align="left">
-                                {subscriber.name}
-                            </TableCell>
-                            <TableCell align="left">
-                                {subscriber.company}
-                            </TableCell>
-                            <TableCell align="center">
-                                {subscriber.date}
-                            </TableCell>
-                            <TableCell>
-                                {subscriber.status}
-                            </TableCell>
-                            <TableCell align="left">
+                {course.map((courses) => (
+                    <TableRow key={courses.courseTitle}>
+                        <TableCell align="center">
+                        {courses.courseCode}
+                        </TableCell>
+                         <TableCell style={{ width: '50%' }}>
+                        {courses.courseTitle}
+                        </TableCell>
+                        <TableCell align="center">
+                        {courses.courseCreditHours}
+                        </TableCell>
+                        <TableCell align="center">
+                        {courses.courseTypeID}
+                        </TableCell>
+                        <TableCell align="center">
                                 <IconButton>
                                 <Checkbox
-                                    value="checkedC"
-                                    inputProps={{'aria-label': 'uncontrolled-checkbox',}}
+                                    onChange={handleCheckedBoxChange}
+                                    checked={checkedState.includes(courses.courseTitle)}
+                                    name={courses.courseTitle}
                                 />
                                 </IconButton>
                             </TableCell>
-                        </TableRow>
-                    ))}
+                    </TableRow>
+
+                ))}
                 </TableBody>
-            </StyledTable>
+
+                </StyledTable>
         </Box>
+    //</Container>
     )
 }
 
-export default SimpleTable
+export default OfferCourse

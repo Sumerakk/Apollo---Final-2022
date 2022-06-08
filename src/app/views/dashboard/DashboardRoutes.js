@@ -4,7 +4,7 @@ import { authRoles } from '../../auth/authRoles'
 
 const TeacherDashboard = Loadable(lazy(() => import('./TeacherDashboard')))
 const StudentDashboard = Loadable(lazy(() => import('./StudentDashboard')))
-//const AdminDashboard = Loadable(lazy(() => import('./AdminDashboard')))
+const AdminDashboard = Loadable(lazy(() => import('./AdminDashboard')))
 
 const dashboardRoutes = [
     {
@@ -17,11 +17,11 @@ const dashboardRoutes = [
         element: <StudentDashboard />,
         auth: authRoles.student,
     },    
-   /* {
+   {
         path: '/dashboard/admin',
-        element: <StudentDashboard />,
+        element: <AdminDashboard />,
         auth: authRoles.admin,
-    },*/
+    },
 ]
 
 export default dashboardRoutes

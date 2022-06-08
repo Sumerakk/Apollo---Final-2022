@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import Scrollbar from 'react-perfect-scrollbar'
-import { navigations } from 'app/navigations'
+import { TeacherNavigation } from 'app/TeacherNavigation'
 import { StudentNavigation } from '../../../app/StudentNavigation'
 import {AdminNavigation} from '../../../app/AdminNavigation'
 import { MatxVerticalNav } from 'app/components'
@@ -56,7 +56,7 @@ const Sidenav = ({ children }) => {
                 {children}
                 <MatxVerticalNav 
                 items={
-                    userDetails?.roleID == 3 ? navigations : (userDetails?.roleID == 4 ? StudentNavigation : (userDetails?.roleID == 2 ? AdminNavigation : null))}
+                    userDetails?.roleID == 2 ? TeacherNavigation : (userDetails?.roleID == 3 ? StudentNavigation : (userDetails?.roleID == 1 ? AdminNavigation : null))}
                 />
                 </StyledScrollBar>
 

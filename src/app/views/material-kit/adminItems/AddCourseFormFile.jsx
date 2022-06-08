@@ -27,7 +27,7 @@ const AppForm = () => {
             <div className="breadcrumb">
                 <Breadcrumb
                     routeSegments={[
-                        { name: 'Material', path: '/material' },
+                        { name: 'Plan Semester', path: '/material' },
                         { name: 'Add Course Form' },
                     ]}
                 />

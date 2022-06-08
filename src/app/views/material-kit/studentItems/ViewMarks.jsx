@@ -1,3 +1,7 @@
+import {
+  MenuItem,
+  Select,
+} from '@mui/material'
 import * as React from 'react';
 import PropTypes from 'prop-types'
 import SwipeableViews from 'react-swipeable-views'
@@ -23,7 +27,14 @@ import AccordionDetails from '@mui/material/AccordionDetails'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 
-
+const CardHeader = styled('div')(() => ({
+  paddingLeft: '24px',
+  paddingRight: '24px',
+  marginBottom: '12px',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+}))
 const Heading = styled(Typography)(({ theme }) => ({
     fontSize: theme.typography.pxToRem(15),
     flexBasis: '33.33%',
@@ -56,8 +67,8 @@ const ItemHead = styled(Paper)(({ theme }) => ({
           },
       },
   }))
-  function createContactInfoData(contactInforCol1, contactInforCol2, contactInforCol3, contactInforCol4,contactInforCol5, contactInforCol6, contactInforCol7, contactInforCol8,) {
-    return { contactInforCol1, contactInforCol2, contactInforCol3, contactInforCol4,contactInforCol5, contactInforCol6, contactInforCol7, contactInforCol8,};
+  function createContactInfoData(contactInforCol1, contactInforCol2, contactInforCol3, contactInforCol4,contactInforCol5, contactInforCol6, contactInforCol7,) {
+    return { contactInforCol1, contactInforCol2, contactInforCol3, contactInforCol4,contactInforCol5, contactInforCol6, contactInforCol7,};
   }
   const CIrows = [
     createContactInfoData
@@ -66,7 +77,6 @@ const ItemHead = styled(Paper)(({ theme }) => ({
     <Text> 16</Text>,
     <Text> 50</Text>,
     <Text> 17</Text>,
-    <Text> </Text>,
     <Text> 10</Text>,
     <Text> 20</Text>),
     createContactInfoData
@@ -75,7 +85,6 @@ const ItemHead = styled(Paper)(({ theme }) => ({
     <Text> 20</Text>,
     <Text> 50</Text>,
     <Text> 15</Text>,
-    <Text> </Text>,
     <Text> 10</Text>,
     <Text> 20</Text>)
   ];
@@ -130,6 +139,13 @@ export default function FullWidthTabs() {
 
   return (
     <Box sx={{ bgcolor: 'background.paper', width: 1330 }}>
+      <CardHeader align="center">
+        <Select size="small" defaultValue="this_month">
+          <MenuItem value="this_month">Spring - 2022</MenuItem>
+          <MenuItem value="last_month">Fall - 2021</MenuItem>                    
+          <MenuItem value="last_month">Summer - 2021</MenuItem>
+        </Select>
+    </CardHeader>
       <AppBar position="static">
         <Tabs
           value={value}
@@ -178,10 +194,9 @@ export default function FullWidthTabs() {
         <TableRow sx={{backgroundColor: '#008ae6'}}>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold'}}>Midterm # </TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Weightage</TableCell>
-            <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold'}}>Obtained Marks(In Hours) </TableCell>
+            <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold'}}>Obtained Marks </TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Total marks </TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Average </TableCell>
-            <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Standard deviation </TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Minimum </TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Maximum </TableCell>
         </TableRow>
@@ -196,7 +211,7 @@ export default function FullWidthTabs() {
               <TableCell align="center">{row.contactInforCol5}</TableCell>              
               <TableCell align="center">{row.contactInforCol6}</TableCell>              
               <TableCell align="center">{row.contactInforCol7}</TableCell>              
-              <TableCell align="center">{row.contactInforCol8}</TableCell>
+ 
             </TableRow>
           ))}
         </TableBody>
@@ -238,10 +253,9 @@ export default function FullWidthTabs() {
         <TableRow sx={{backgroundColor: '#008ae6'}}>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold'}}>Midterm # </TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Weightage</TableCell>
-            <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold'}}>Obtained Marks(In Hours) </TableCell>
+            <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold'}}>Obtained Marks</TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Total marks </TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Average </TableCell>
-            <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Standard deviation </TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Minimum </TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Maximum </TableCell>
         </TableRow>
@@ -255,8 +269,7 @@ export default function FullWidthTabs() {
               <TableCell align="center">{row.contactInforCol4}</TableCell>              
               <TableCell align="center">{row.contactInforCol5}</TableCell>              
               <TableCell align="center">{row.contactInforCol6}</TableCell>              
-              <TableCell align="center">{row.contactInforCol7}</TableCell>              
-              <TableCell align="center">{row.contactInforCol8}</TableCell>
+              <TableCell align="center">{row.contactInforCol7}</TableCell>  
             </TableRow>
           ))}
         </TableBody>
@@ -298,10 +311,9 @@ export default function FullWidthTabs() {
         <TableRow sx={{backgroundColor: '#008ae6'}}>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold'}}>Midterm # </TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Weightage</TableCell>
-            <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold'}}>Obtained Marks(In Hours) </TableCell>
+            <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold'}}>Obtained Marks</TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Total marks </TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Average </TableCell>
-            <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Standard deviation </TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Minimum </TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Maximum </TableCell>
         </TableRow>
@@ -315,8 +327,7 @@ export default function FullWidthTabs() {
               <TableCell align="center">{row.contactInforCol4}</TableCell>              
               <TableCell align="center">{row.contactInforCol5}</TableCell>              
               <TableCell align="center">{row.contactInforCol6}</TableCell>              
-              <TableCell align="center">{row.contactInforCol7}</TableCell>              
-              <TableCell align="center">{row.contactInforCol8}</TableCell>
+              <TableCell align="center">{row.contactInforCol7}</TableCell> 
             </TableRow>
           ))}
         </TableBody>
@@ -357,10 +368,9 @@ export default function FullWidthTabs() {
         <TableRow sx={{backgroundColor: '#008ae6'}}>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold'}}>Midterm # </TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Weightage</TableCell>
-            <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold'}}>Obtained Marks(In Hours) </TableCell>
+            <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold'}}>Obtained Marks</TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Total marks </TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Average </TableCell>
-            <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Standard deviation </TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Minimum </TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Maximum </TableCell>
         </TableRow>
@@ -374,8 +384,7 @@ export default function FullWidthTabs() {
               <TableCell align="center">{row.contactInforCol4}</TableCell>              
               <TableCell align="center">{row.contactInforCol5}</TableCell>              
               <TableCell align="center">{row.contactInforCol6}</TableCell>              
-              <TableCell align="center">{row.contactInforCol7}</TableCell>              
-              <TableCell align="center">{row.contactInforCol8}</TableCell>
+              <TableCell align="center">{row.contactInforCol7}</TableCell>   
             </TableRow>
           ))}
         </TableBody>
@@ -422,10 +431,9 @@ export default function FullWidthTabs() {
         <TableRow sx={{backgroundColor: '#008ae6'}}>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold'}}>Midterm # </TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Weightage</TableCell>
-            <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold'}}>Obtained Marks(In Hours) </TableCell>
+            <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold'}}>Obtained Marks</TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Total marks </TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Average </TableCell>
-            <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Standard deviation </TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Minimum </TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Maximum </TableCell>
         </TableRow>
@@ -439,8 +447,7 @@ export default function FullWidthTabs() {
               <TableCell align="center">{row.contactInforCol4}</TableCell>              
               <TableCell align="center">{row.contactInforCol5}</TableCell>              
               <TableCell align="center">{row.contactInforCol6}</TableCell>              
-              <TableCell align="center">{row.contactInforCol7}</TableCell>              
-              <TableCell align="center">{row.contactInforCol8}</TableCell>
+              <TableCell align="center">{row.contactInforCol7}</TableCell> 
             </TableRow>
           ))}
         </TableBody>
@@ -482,10 +489,9 @@ export default function FullWidthTabs() {
         <TableRow sx={{backgroundColor: '#008ae6'}}>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold'}}>Midterm # </TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Weightage</TableCell>
-            <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold'}}>Obtained Marks(In Hours) </TableCell>
+            <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold'}}>Obtained Marks </TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Total marks </TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Average </TableCell>
-            <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Standard deviation </TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Minimum </TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Maximum </TableCell>
         </TableRow>
@@ -499,8 +505,7 @@ export default function FullWidthTabs() {
               <TableCell align="center">{row.contactInforCol4}</TableCell>              
               <TableCell align="center">{row.contactInforCol5}</TableCell>              
               <TableCell align="center">{row.contactInforCol6}</TableCell>              
-              <TableCell align="center">{row.contactInforCol7}</TableCell>              
-              <TableCell align="center">{row.contactInforCol8}</TableCell>
+              <TableCell align="center">{row.contactInforCol7}</TableCell>  
             </TableRow>
           ))}
         </TableBody>
@@ -542,10 +547,9 @@ export default function FullWidthTabs() {
         <TableRow sx={{backgroundColor: '#008ae6'}}>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold'}}>Midterm # </TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Weightage</TableCell>
-            <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold'}}>Obtained Marks(In Hours) </TableCell>
+            <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold'}}>Obtained Marks</TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Total marks </TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Average </TableCell>
-            <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Standard deviation </TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Minimum </TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Maximum </TableCell>
         </TableRow>
@@ -559,8 +563,7 @@ export default function FullWidthTabs() {
               <TableCell align="center">{row.contactInforCol4}</TableCell>              
               <TableCell align="center">{row.contactInforCol5}</TableCell>              
               <TableCell align="center">{row.contactInforCol6}</TableCell>              
-              <TableCell align="center">{row.contactInforCol7}</TableCell>              
-              <TableCell align="center">{row.contactInforCol8}</TableCell>
+              <TableCell align="center">{row.contactInforCol7}</TableCell>    
             </TableRow>
           ))}
         </TableBody>
@@ -601,10 +604,9 @@ export default function FullWidthTabs() {
         <TableRow sx={{backgroundColor: '#008ae6'}}>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold'}}>Midterm # </TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Weightage</TableCell>
-            <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold'}}>Obtained Marks(In Hours) </TableCell>
+            <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold'}}>Obtained Marks</TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Total marks </TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Average </TableCell>
-            <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Standard deviation </TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Minimum </TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Maximum </TableCell>
         </TableRow>
@@ -618,8 +620,7 @@ export default function FullWidthTabs() {
               <TableCell align="center">{row.contactInforCol4}</TableCell>              
               <TableCell align="center">{row.contactInforCol5}</TableCell>              
               <TableCell align="center">{row.contactInforCol6}</TableCell>              
-              <TableCell align="center">{row.contactInforCol7}</TableCell>              
-              <TableCell align="center">{row.contactInforCol8}</TableCell>
+              <TableCell align="center">{row.contactInforCol7}</TableCell>   
             </TableRow>
           ))}
         </TableBody>
@@ -666,10 +667,9 @@ export default function FullWidthTabs() {
         <TableRow sx={{backgroundColor: '#008ae6'}}>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold'}}>Midterm # </TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Weightage</TableCell>
-            <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold'}}>Obtained Marks(In Hours) </TableCell>
+            <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold'}}>Obtained Marks</TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Total marks </TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Average </TableCell>
-            <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Standard deviation </TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Minimum </TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Maximum </TableCell>
         </TableRow>
@@ -683,8 +683,7 @@ export default function FullWidthTabs() {
               <TableCell align="center">{row.contactInforCol4}</TableCell>              
               <TableCell align="center">{row.contactInforCol5}</TableCell>              
               <TableCell align="center">{row.contactInforCol6}</TableCell>              
-              <TableCell align="center">{row.contactInforCol7}</TableCell>              
-              <TableCell align="center">{row.contactInforCol8}</TableCell>
+              <TableCell align="center">{row.contactInforCol7}</TableCell>  
             </TableRow>
           ))}
         </TableBody>
@@ -726,10 +725,9 @@ export default function FullWidthTabs() {
         <TableRow sx={{backgroundColor: '#008ae6'}}>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold'}}>Midterm # </TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Weightage</TableCell>
-            <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold'}}>Obtained Marks(In Hours) </TableCell>
+            <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold'}}>Obtained Marks </TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Total marks </TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Average </TableCell>
-            <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Standard deviation </TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Minimum </TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Maximum </TableCell>
         </TableRow>
@@ -743,8 +741,7 @@ export default function FullWidthTabs() {
               <TableCell align="center">{row.contactInforCol4}</TableCell>              
               <TableCell align="center">{row.contactInforCol5}</TableCell>              
               <TableCell align="center">{row.contactInforCol6}</TableCell>              
-              <TableCell align="center">{row.contactInforCol7}</TableCell>              
-              <TableCell align="center">{row.contactInforCol8}</TableCell>
+              <TableCell align="center">{row.contactInforCol7}</TableCell>  
             </TableRow>
           ))}
         </TableBody>
@@ -786,10 +783,9 @@ export default function FullWidthTabs() {
         <TableRow sx={{backgroundColor: '#008ae6'}}>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold'}}>Midterm # </TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Weightage</TableCell>
-            <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold'}}>Obtained Marks(In Hours) </TableCell>
+            <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold'}}>Obtained Marks </TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Total marks </TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Average </TableCell>
-            <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Standard deviation </TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Minimum </TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Maximum </TableCell>
         </TableRow>
@@ -803,8 +799,7 @@ export default function FullWidthTabs() {
               <TableCell align="center">{row.contactInforCol4}</TableCell>              
               <TableCell align="center">{row.contactInforCol5}</TableCell>              
               <TableCell align="center">{row.contactInforCol6}</TableCell>              
-              <TableCell align="center">{row.contactInforCol7}</TableCell>              
-              <TableCell align="center">{row.contactInforCol8}</TableCell>
+              <TableCell align="center">{row.contactInforCol7}</TableCell>    
             </TableRow>
           ))}
         </TableBody>
@@ -845,10 +840,9 @@ export default function FullWidthTabs() {
         <TableRow sx={{backgroundColor: '#008ae6'}}>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold'}}>Midterm # </TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Weightage</TableCell>
-            <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold'}}>Obtained Marks(In Hours) </TableCell>
+            <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold'}}>Obtained Marks</TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Total marks </TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Average </TableCell>
-            <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Standard deviation </TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Minimum </TableCell>
             <TableCell align="center" style={{ fontSize: '16px', fontWeight: 'bold' }}>Maximum </TableCell>
         </TableRow>
@@ -862,8 +856,7 @@ export default function FullWidthTabs() {
               <TableCell align="center">{row.contactInforCol4}</TableCell>              
               <TableCell align="center">{row.contactInforCol5}</TableCell>              
               <TableCell align="center">{row.contactInforCol6}</TableCell>              
-              <TableCell align="center">{row.contactInforCol7}</TableCell>              
-              <TableCell align="center">{row.contactInforCol8}</TableCell>
+              <TableCell align="center">{row.contactInforCol7}</TableCell>    
             </TableRow>
           ))}
         </TableBody>

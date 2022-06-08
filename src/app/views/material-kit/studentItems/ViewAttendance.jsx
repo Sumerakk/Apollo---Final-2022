@@ -1,3 +1,7 @@
+import {
+  MenuItem,
+  Select,
+} from '@mui/material'
 import * as React from 'react';
 import PropTypes from 'prop-types'
 import SwipeableViews from 'react-swipeable-views'
@@ -19,6 +23,14 @@ import Typography from '@mui/material/Typography'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import Paper from '@mui/material/Paper'
 
+const CardHeader = styled('div')(() => ({
+  paddingLeft: '24px',
+  paddingRight: '24px',
+  marginBottom: '12px',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+}))
 const ItemHead = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
   textAlign: 'center',
@@ -129,7 +141,14 @@ export default function FullWidthTabs() {
   };
 
   return (
-    <Box sx={{ bgcolor: 'background.paper', width: 1330 }}>
+        <Box sx={{ bgcolor: 'background.paper', width: 1330 }}>
+          <CardHeader align="center">
+        <Select size="small" defaultValue="this_month">
+          <MenuItem value="this_month">Spring - 2022</MenuItem>
+          <MenuItem value="last_month">Fall - 2021</MenuItem>                    
+          <MenuItem value="last_month">Summer - 2021</MenuItem>
+        </Select>
+    </CardHeader>
       <AppBar position="static">
         <Tabs
           value={value}

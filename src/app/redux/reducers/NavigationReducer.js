@@ -1,7 +1,7 @@
-import { navigations } from 'app/navigations'
+import { TeacherNavigation } from 'app/TeacherNavigation'
 import { SET_USER_NAVIGATION, SET_STUDENT_NAVIGATION } from '../actions/NavigationAction'
 
-const initialState = [...navigations]
+const initialState = [...TeacherNavigation]
 
 const NavigationReducer = function (state = initialState, action) {
     switch (action.type) {

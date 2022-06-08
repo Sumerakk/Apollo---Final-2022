@@ -1,7 +1,7 @@
 export const AdminNavigation = [
     {
         name: 'Dashboard',
-        path: '/dashboard/default',
+        path: '/dashboard/admin',
         icon: 'dashboard',
     },
     {

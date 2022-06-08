@@ -1,5 +1,5 @@
 import React from 'react'
-import EditStudentForm from './EditStudentForm'
+import MarkAttendance from './MarkAttendance'
 import { Span } from 'app/components/Typography'
 import { Breadcrumb, SimpleCard } from 'app/components'
 import { Box, styled } from '@mui/system'
@@ -21,19 +21,21 @@ const Container = styled('div')(({ theme }) => ({
 const StyledButton = styled(Button)(({ theme }) => ({
     margin: theme.spacing(1),
 }))
-const EditStudentFormFile = () => {
+const AppForm = () => {
     return (
         <Container>
             <div className="breadcrumb">
                 <Breadcrumb
                     routeSegments={[
-                        { name: 'Student Management', path: '/material' },
-                        { name: 'Edit Student' },
+                        { name: 'Material', path: '/material' },
+                        { name: 'Mark Attendance' },
                     ]}
                 />
             </div>
-            <SimpleCard title="Edit Student">
-                <EditStudentForm />
+
+<Box py="12px" />
+            <SimpleCard title="Mark Attendance">
+                <MarkAttendance />
             </SimpleCard>
 
 
@@ -41,4 +43,4 @@ const EditStudentFormFile = () => {
     )
 }
 
-export default EditStudentFormFile
+export default AppForm

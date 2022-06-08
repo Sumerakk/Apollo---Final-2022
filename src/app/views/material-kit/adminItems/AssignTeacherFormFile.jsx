@@ -26,7 +26,7 @@ const AssignTeacherFormFile = () => {
             <div className="breadcrumb">
                 <Breadcrumb
                     routeSegments={[
-                        { name: 'Material', path: '/material' },
+                        { name: 'Plan Semester', path: '/material' },
                         { name: 'Assign Teacher Form' },
                     ]}
                 />

@@ -5,6 +5,8 @@ import { Box, styled } from '@mui/system'
 import { Icon, Button, Fab } from '@mui/material'
 import { Span } from 'app/components/Typography'
 import { useNavigate } from 'react-router-dom'
+import { SnackbarProvider, useSnackbar } from 'notistack'
+
 
 const Container = styled('div')(({ theme }) => ({
     margin: '30px',
@@ -21,15 +23,21 @@ const Container = styled('div')(({ theme }) => ({
 const StyledButton = styled(Button)(({ theme }) => ({
     margin: theme.spacing(1),
 }))
-const AppTable = () => {
-
+const OfferedCoursesFile = () => {
+    //const { enqueueSnackbar } = useSnackbar()
+    /*const handleClickVariant = (variant) => () => {
+        // variant could be success, error, warning, info, or default
+        enqueueSnackbar('This is a warning message!', { variant })
+    }
+    };*/
     const navigate = useNavigate();
+
     return (
         <Container>
             <div className="breadcrumb">
                 <Breadcrumb
                     routeSegments={[
-                        { name: 'Material', path: '/material' },
+                        { name: 'Plan Semester', path: '/material' },
                         { name: 'Offer Courses' },
                     ]}
                 />
@@ -48,4 +56,4 @@ const AppTable = () => {
     )
 }
 
-export default AppTable
+export default OfferedCoursesFile

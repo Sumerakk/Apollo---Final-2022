@@ -17,11 +17,19 @@ const ViewAttendance = Loadable(lazy(() => import("./studentItems/ViewAttendance
 const ViewMarks = Loadable(lazy(() => import("./studentItems/ViewMarksFile")));
 const ManageEvaluation = Loadable(lazy(() => import("./tables/ManageEvaluationFile")));
 const StudentsList = Loadable(lazy(() => import("./forms/EvaluateStudents")));
+const SearchStudent = Loadable(lazy(() => import("./adminItems/SearchStudent")));
+const RegisterStudent = Loadable(lazy(() => import("./adminItems/RegisterStudent")));
+const ActivatePeriod = Loadable(lazy(() => import("./adminItems/ActivatePeriodFormFile")));
+const MarkAttendance = Loadable(lazy(() => import("./adminItems/MarkAttendanceFile")));
 
 const materialRoutes = [
     {
         path: '/material/table',
         element: <AppTable />,
+    },
+    {
+        path: '/markAttendance',
+        element: <MarkAttendance />,
     },
     {
         path: '/material/SetMarksDistribution',
@@ -87,6 +95,18 @@ const materialRoutes = [
         path: '/material/CalculateCGPAForm',
         element: <CalculateCGPAForm />,
     },    
+    {
+         path: '/searchStudent',               //adminFeature
+        element: <SearchStudent />,
+    },  
+    {
+        path: '/registerStudent',            //adminFeature
+        element: <RegisterStudent/>,
+    }, 
+    {
+        path: '/activePeriod',  //adminFeature
+        element: <ActivatePeriod/>,
+    },
 ]
 
 export default materialRoutes

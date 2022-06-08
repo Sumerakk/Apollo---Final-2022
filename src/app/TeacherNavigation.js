@@ -1,4 +1,4 @@
-export const navigations = [
+export const TeacherNavigation = [
     {
         name: 'Dashboard',
         path: '/dashboard/teacher',
@@ -23,18 +23,7 @@ export const navigations = [
     {
         name: 'Mark Attendance',
         icon: 'people',
-        path: '/material/OfferCourse',
+        path: '/markAttendance',
       
-    },
-    {
-        name: 'Add Course',
-        iconText: 'SI',
-        path: '/material/AddCourseform',
-    },
-    {
-        name: 'Add Teacher',
-        iconText: '404',
-        path: '/material/AddTeacherForm',
-    },
-    
+    },    
 ]
