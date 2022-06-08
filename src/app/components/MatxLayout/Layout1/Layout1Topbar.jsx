@@ -18,8 +18,6 @@ import {
     Hidden,
 } from '@mui/material'
 import { topBarHeight } from 'app/utils/constant'
-import tAvatar from '../../../../images/arehman.jpg'
-
 
 const StyledIconButton = styled(IconButton)(({ theme }) => ({
     color: theme.palette.text.primary,
@@ -139,8 +137,7 @@ const Layout1Topbar = () => {
                                     </Span>
                                 </Hidden>
                                 <Avatar
-                                   //src={user.avatar}
-                                    src={tAvatar}
+                                    src={user.avatar}
                                     sx={{ cursor: 'pointer' }}
                                 />
                             </UserMenu>
